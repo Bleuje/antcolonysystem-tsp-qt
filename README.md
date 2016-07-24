@@ -35,6 +35,9 @@ The maximum number of neighbors can be used to consier only the closest vertex a
 Now the algorithm is ready to be launched using the button "Run". You can pause it and modify the parameters for each colony at any time. The amount of pheromones is represented in grean, you can hide it to increase performance if there are too many edges. At the end the best permutation will be saved in the folder '/results'.
 Format : length of the path, followed by the indexes of the points in the path.
 
+## How to run the program
+With this repositary you should have all the source files necessary to compile the code in Qt Creator like me.
+
 ## Known flaws / future improvements
 - The code should be completely in english, or at least in only one language.
 - There should be more comments to describe methods, and to document constraints on parameters.
