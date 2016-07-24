@@ -1,7 +1,8 @@
 # An implementation and visualization of the Ant Colony System algorithm.
 
 ## Introduction
-A project about visualizing the Ant Colony System algorithm (with some local search improvements) using C++ with Qt. It was done as a project to learn how to create a little software. It was coded with Qt Creator
+A project about visualizing the Ant Colony System algorithm (with some local search improvements) using C++ with Qt. It was done as a project to learn how to create a little software. It was coded with Qt Creator.
+
 Ant Colony System is an algorithm to optimize the Traveling Salesman Problem (TSP) : finding the shortest hamiltonian cycle in a complete graph.
 
 ### Problem to optimize
