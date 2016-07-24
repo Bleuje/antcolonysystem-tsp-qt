@@ -4,6 +4,9 @@
 A project about visualizing the Ant Colony System algorithm (with some local search improvements) using C++ with Qt. It was done as a project to learn how to create a little software. It was coded with Qt Creator
 Ant Colony System is an algorithm to optimize the Traveling Salesman Problem (TSP) : finding the shortest hamiltonian cycle in a complete graph. Here it will be more precisely finding the shortest cycle to visit n points on the 2D plane.
 
+Here's what the main window looks like when the algorithm is running :
+![image](https://raw.githubusercontent.com/Bleuje/antcolonysystem-tsp-qt/master/vwindow.png)
+
 ## Algorithm
 I found details about the Ant Colony System algorithm in this paper :
 http://www.i3s.unice.fr/~crescenz/publications/travaux_etude/colonies_fourmis-200605-rapport.pdf
@@ -27,4 +30,10 @@ The maximum number of neighbors can be used to consier only the closest vertex a
 Now the algorithm is ready to be launched using the button "Run". You can pause it and modify the parameters for each colony at any time. The amount of pheromones is represented in grean, you can hide it to increase performance if there are too many edges. At the end the best permutation will be saved in the folder '/results'.
 Format : length of the path, followed by the indexes of the points in the path.
 
-![image](https://raw.githubusercontent.com/Bleuje/antcolonysystem-tsp-qt/master/vwindow.png)
+## Known flaws / future improvements
+- The code should be completely in english, or at least in only one language.
+- There should be more comments to describe methods, and to document constraints on parameters.
+- Classes should be implemented in a way such that looking at the corresponding code is note necessary.
+- Variables and functions should choose a strict namin convention.
+- There shouldnt be as many constants that haven't been clearcly defined.
+- The architecture of the code regarding the use of buttons could be much better.
