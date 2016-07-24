@@ -2,8 +2,12 @@
 
 ## Introduction
 A project about visualizing the Ant Colony System algorithm (with some local search improvements) using C++ with Qt. It was done as a project to learn how to create a little software. It was coded with Qt Creator
-Ant Colony System is an algorithm to optimize the Traveling Salesman Problem (TSP) : finding the shortest hamiltonian cycle in a complete graph. Here it will be more precisely finding the shortest cycle to visit n points on the 2D plane.
+Ant Colony System is an algorithm to optimize the Traveling Salesman Problem (TSP) : finding the shortest hamiltonian cycle in a complete graph.
 
+### Problem to optimize
+Here we will more precisely try to find the shortest cycle to visit n points on the 2D plane.
+
+### Screenshot
 Here's what the main window looks like when the algorithm is running :
 ![image](https://raw.githubusercontent.com/Bleuje/antcolonysystem-tsp-qt/master/vwindow.png)
 
