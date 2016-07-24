@@ -43,6 +43,6 @@ With this repositary you should have all the source files necessary to compile t
 - The code should be completely in english, or at least in only one language.
 - There should be more comments to describe methods, and to document constraints on parameters.
 - Classes should be implemented in a way such that looking at the corresponding code is note necessary.
-- Variables and functions should choose a strict namin convention.
-- There shouldnt be as many constants that haven't been clearcly defined.
+- Variables and functions should choose a strict naming convention.
+- There shouldn't be as many constants that haven't been clearly defined.
 - The architecture of the code regarding the use of buttons could be much better.
