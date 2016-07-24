@@ -9,7 +9,7 @@ Ant Colony System is an algorithm to optimize the Traveling Salesman Problem (TS
 Here we will more precisely try to find the shortest cycle to visit n points on the 2D plane.
 
 ### Screenshot
-Here's what the main window looks like when the algorithm is running :
+Here's what the main window looks like while the algorithm is running :
 ![image](https://raw.githubusercontent.com/Bleuje/antcolonysystem-tsp-qt/master/vwindow.png)
 
 ## Algorithm
