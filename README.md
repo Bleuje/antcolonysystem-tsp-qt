@@ -16,7 +16,7 @@ Here's what the main window looks like while the algorithm is running :
 I found details about the Ant Colony System algorithm in this french paper :
 http://www.i3s.unice.fr/~crescenz/publications/travaux_etude/colonies_fourmis-200605-rapport.pdf
 
-Then I added a local search (it is still optional) after each ant walk : I try to reverse or shift subsequences of the permutation many times to improve it. I think it has greatly increased the quality of my results. 
+Then I added a local search (it is still optional) after each ant walk : it tries to reverse or shift subsequences of the permutation many times to improve it. It greatly increases the quality of results. 
 
 ## Graphical user interface
 ### Defining the set of points to work with.
