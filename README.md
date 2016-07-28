@@ -27,7 +27,7 @@ The set of points you used will be automatically saved in the folder '/problems'
 Format : number of points, followed by the coordinates of each point.
 
 ### Definining parameters
-On the next window, the user can choose the parameters of the algorithm. The previous pdf file should clarify the meaning of most paramters, although I add 10*Q/length² instead of Q/length on each edge after the ant walk is computed (I decided to increase the effect of a difference in length).
+On the next window, the user can choose the parameters of the algorithm. The previous pdf file should clarify the meaning of most paramters, although I add 10*Q/length² instead of Q/length (yes the factor 10 doesn't make sense) on each edge after the ant walk is computed (I decided to increase the effect of a difference in length).
 The elite field is the number of times the pheromones of the best ant will be added again, at each iteration.
 The number of local search iterations is the number of tries to try to improve each ant random walk.
 The maximum number of neighbors can be used to consier only the closest vertex as next possible positions. The problem with this is that it can prevent you from completing a cycle.
