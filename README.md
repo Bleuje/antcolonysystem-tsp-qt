@@ -13,7 +13,7 @@ Here's what the main window looks like while the algorithm is running :
 ![image](https://raw.githubusercontent.com/Bleuje/antcolonysystem-tsp-qt/master/vwindow.png)
 
 ## Algorithm
-I found details about the Ant Colony System algorithm in this paper :
+I found details about the Ant Colony System algorithm in this french paper :
 http://www.i3s.unice.fr/~crescenz/publications/travaux_etude/colonies_fourmis-200605-rapport.pdf
 
 Then I added a local search (it is still optional) after each ant walk : I try to reverse or shift subsequences of the permutation many times to improve it. I think it has greatly increased the quality of my results. 
@@ -38,6 +38,11 @@ Format : length of the path, followed by the indexes of the points in the path.
 
 ## How to run the program
 With this repositary you should have all the source files necessary to compile the code in Qt Creator like me.
+
+## Results
+The algorithm with right parameters can achieve a distance less than 12.5 in a few seconds on 250 points from this benchmark (french website) :
+
+http://labo.algo.free.fr/defi250/classement.php?id=1
 
 ## Known flaws / future improvements
 - The code should be completely in english, or at least in only one language.
