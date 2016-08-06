@@ -21,7 +21,7 @@ int main(int argc, char *argv[])
     bool choice = ask_main_parameters(K,n,DX,DY);
     Colony c;
 
-    /// A new problem is gerated even if the user asked to load an existing one.
+    /// A new problem is generated even if the user asked to load an existing one.
     c.random_points(n,DX,DY);
 
     if(choice){c.load_file();}
@@ -38,7 +38,7 @@ int main(int argc, char *argv[])
     c.ask_parameters();
 
 
-    /// Initilization of all colonies
+    /// Initialization of all colonies
     Colony * colonies = new Colony[K];
     for(int i=0;i<K;i++){
         colonies[i]=c;

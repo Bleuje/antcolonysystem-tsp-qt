@@ -198,7 +198,7 @@ vector<int> Colony::random_walk(const int& f)
 // Adds pheromones from a path,
 // not on the pheromones table but on the table indicating the pheromones that will be added at the en of the iteration
 
-void Colony::add_pheromones_from_walk(vector<int>& path,double length,double q)
+void Colony::add_pheromones_from_walk(const vector<int>& path,const double& length, const double &q)
 {
     //length*=length/10; /// WTF
     for(int i=0;i+1<int(path.size());i++)
@@ -224,7 +224,7 @@ double Colony::compute_length(const vector<int>& path)
 // Updates the best paths, on different levels.
 // It does a comparison between path and path2,
 // But also updates the best path of the colony at the current iteration, and globally
-void Colony::update(vector<int>& path,vector<int>& path2,double& length,double& length2)
+void Colony::update(vector<int>& path,vector<int>& path2,double& length,const double& length2)
 {
     /// path2 comes back to path, but before, path becomes path2 if path2 was better
     if(length2<length)
@@ -331,7 +331,7 @@ bool is_finished(Colony * colonies,const int& k){
 
 
 // Save the best path in the subfolder results/
-void Colony::write_result(QString s)
+void Colony::write_result(const QString &s)
 {
     if(!QDir("results").exists())
         QDir().mkdir("results");
@@ -344,7 +344,7 @@ void Colony::write_result(QString s)
 
 
 // Change graphical attributes of the colony
-void Colony::set_options(bool b1,bool b2)
+void Colony::set_options(const bool& b1,const bool& b2)
 {
     display_pheromones = b1;
     display_best_walk = b2;
@@ -392,7 +392,7 @@ void Colony::plot_best_result()
 
 
 // Adds pheromones to the colony scene
-void Colony::plot_pheromones(int width)
+void Colony::plot_pheromones(int& width)
 {
     if(etat.step==0)width=0;
     QPen pen(Qt::green);
@@ -410,7 +410,7 @@ void Colony::plot_pheromones(int width)
 
 
 // Puts things on the scene
-void Colony::plot(const int& width)
+void Colony::plot(int width)
 {
     scene->clear();
     if(display_pheromones)plot_pheromones(width);
