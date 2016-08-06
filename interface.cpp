@@ -3,11 +3,11 @@ using namespace std;
 
 bool ask_main_parameters(int& K,int& n,int& DX,int& DY)
 {
-    QWidget * fenetre0 = new QWidget();
-    fenetre0->setStyleSheet("QPushButton { font-size: 10pt; background-color: lightgrey }");
-    fenetre0->setWindowTitle("Problem generation");
-    fenetre0->setFixedWidth(322);
-    fenetre0->setWindowFlags(Qt::Dialog | Qt::WindowTitleHint);
+    QWidget * window0 = new QWidget();
+    window0->setStyleSheet("QPushButton { font-size: 10pt; background-color: lightgrey }");
+    window0->setWindowTitle("Problem generation");
+    window0->setFixedWidth(322);
+    window0->setWindowFlags(Qt::Dialog | Qt::WindowTitleHint);
     QImage myImage;
     myImage.load("ants.png");
 
@@ -42,8 +42,8 @@ bool ask_main_parameters(int& K,int& n,int& DX,int& DY)
     QPushButton *boutonOk = new QPushButton("Next");
     layoutPrincipal->addWidget(boutonOk);
 
-    fenetre0->setLayout(layoutPrincipal);
-    fenetre0->show();
+    window0->setLayout(layoutPrincipal);
+    window0->show();
 
     QEventLoop loop;
     QObject::connect(boutonOk, SIGNAL(clicked()), &loop, SLOT(quit()));
@@ -64,12 +64,12 @@ bool ask_main_parameters(int& K,int& n,int& DX,int& DY)
     delete formLayout;
     delete boutonOk;
     delete layoutPrincipal;
-    delete fenetre0;
+    delete window0;
 
     return res;
 }
 
-void SetThings::reglage()
+void SetThings::setting()
 {
     c->ask_parameters();
     c->plot(8);
@@ -87,8 +87,8 @@ void SetThings::stop()
     c->plot(8);
 }
 
-void SetThings::quitfenetre()
+void SetThings::quit_window()
 {
-    delete fenetre;
+    delete window;
 }
 

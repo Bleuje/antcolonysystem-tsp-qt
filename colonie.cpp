@@ -112,7 +112,7 @@ void Colony::ant_try(const int& f)
     update(path,path2,length,length2);
 
     /// Local search optimization (update of the best path is included) - TO DO : user interface to control this
-    for(int tt=0;tt<param.nmut;tt++)
+    for(int tt=0;tt<param.number_of_mutations;tt++)
     {
         shift(1,path,path2,length,length2);
         shift(2,path,path2,length,length2);
@@ -430,11 +430,11 @@ void Colony::set_colony_view(Colony_view & cview)
 void Colony::ask_parameters()
 {
     Colony_parameters c = param;
-    QWidget * fenetre0 = new QWidget();
-    fenetre0->setWindowFlags(Qt::Dialog | Qt::WindowTitleHint);
-    fenetre0->setWindowTitle("Algorithm Parameters");
-    fenetre0->setFixedWidth(300);
-    fenetre0->setStyleSheet("QPushButton { font-size: 10pt; background-color: lightgrey }");
+    QWidget * window0 = new QWidget();
+    window0->setWindowFlags(Qt::Dialog | Qt::WindowTitleHint);
+    window0->setWindowTitle("Algorithm Parameters");
+    window0->setFixedWidth(300);
+    window0->setStyleSheet("QPushButton { font-size: 10pt; background-color: lightgrey }");
     QSpinBox * mbox = new QSpinBox;
     mbox->setRange(1,1000);
     if(c.m<0)c.m=n;
@@ -457,9 +457,9 @@ void Colony::ask_parameters()
     QSpinBox * ebox = new QSpinBox;
     ebox->setRange(0,1000);
     ebox->setValue(c.e);
-    QSpinBox * nmutbox = new QSpinBox;
-    nmutbox->setRange(0,10000);
-    nmutbox->setValue(c.nmut);
+    QSpinBox * number_of_mutationsbox = new QSpinBox;
+    number_of_mutationsbox->setRange(0,10000);
+    number_of_mutationsbox->setValue(c.number_of_mutations);
     QSpinBox * number_of_neighborsbox = new QSpinBox;
     if(c.number_of_neighbors<0)c.number_of_neighbors=NBV_d;
     number_of_neighborsbox->setRange(5,1000);
@@ -475,7 +475,7 @@ void Colony::ask_parameters()
     formLayout->addRow("Conservation rho : ", rhobox);
     formLayout->addRow("Number of iterations : ", itbox);
     formLayout->addRow("Elite : ", ebox);
-    formLayout->addRow("Local search iterations : ", nmutbox);
+    formLayout->addRow("Local search iterations : ", number_of_mutationsbox);
     formLayout->addRow("Number max of neighboors : ", number_of_neighborsbox);
     formLayout->addRow("Show pheromones ", gpbox);
     gpbox->setChecked(display_pheromones);
@@ -488,8 +488,8 @@ void Colony::ask_parameters()
     QPushButton *boutonOk = new QPushButton("OK");
     layoutPrincipal->addWidget(boutonOk);
 
-    fenetre0->setLayout(layoutPrincipal);
-    fenetre0->show();
+    window0->setLayout(layoutPrincipal);
+    window0->show();
 
     QEventLoop loop;
     QObject::connect(boutonOk, SIGNAL(clicked()), &loop, SLOT(quit()));
@@ -502,7 +502,7 @@ void Colony::ask_parameters()
     param.rho = rhobox->value();
     param.max_it = itbox->value();
     param.e = ebox->value();
-    param.nmut = nmutbox->value();
+    param.number_of_mutations = number_of_mutationsbox->value();
     display_pheromones = gpbox->checkState();
     display_best_walk = gbbox->checkState();
     set_neighbors_graph(number_of_neighborsbox->value());
@@ -514,12 +514,12 @@ void Colony::ask_parameters()
     delete rhobox;
     delete itbox;
     delete ebox;
-    delete nmutbox;
+    delete number_of_mutationsbox;
     delete gpbox;
     delete gbbox;
     delete number_of_neighborsbox;
     delete formLayout;
     delete boutonOk;
     delete layoutPrincipal;
-    delete fenetre0;
+    delete window0;
 }

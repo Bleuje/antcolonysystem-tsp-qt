@@ -1,34 +1,44 @@
+/*********************************************************************
+An implementation and visualization of the Ant Colony System algorithm
+with local search on ant walks.
+----------------------------------------------------------------------
+                        Etienne JACOB - 2016
+                        --------------------
+
+**********************************************************************/
+
 #include "interface.h"
 using namespace std;
 
-// plus de commentaires, décrire les méthodes, documenter les contraintes sur les paramètres.
-// bien documenter les méthodes
-// faire des classes telles qu'on puisse les utiliser sans regarder le code
-// conventions de nommage
-// eviter de mélanger français anglais
-// plus de constantes
 
 
 int main(int argc, char *argv[])
 {
     QApplication * a = new QApplication(argc, argv);
 
-    /// Initialisation du problème
+    /// Problem initilization
     int K,n,DX,DY;
     bool choice = ask_main_parameters(K,n,DX,DY);
     Colony c;
-    QDate date = QDate::currentDate();
-    QTime time = QTime::currentTime();
+
+    /// A new problem is gerated even if the user asked to load an existing one.
     c.random_points(n,DX,DY);
+
     if(choice){c.load_file();}
-    else{/// Sauvegarde du problème
+    else{
+        /// If the new problem is used, it is automatically saved in a subfolder, using the current time to create the filename
+
+        QDate date = QDate::currentDate();
+        QTime time = QTime::currentTime();
+
         c.write_points("Instance_"+date.toString("dd-MM-yyyy")+"_"+time.toString("hh-mm-ss"));
     }
 
-    /// Demande des paramètres généraux de l'algorithme
+    /// Window to choose the parameters of the algorithm for all colonies
     c.ask_parameters();
 
-    /// Creation des colonies
+
+    /// Initilization of all colonies
     Colony * colonies = new Colony[K];
     for(int i=0;i<K;i++){
         colonies[i]=c;
@@ -36,16 +46,16 @@ int main(int argc, char *argv[])
     }
 
 
-    /// Creation de la grande fenetre
+    /// Creating the big main window...
     DX = min(DX,QApplication::desktop()->screenGeometry().width()/K);
     DY = min(DY,QApplication::desktop()->screenGeometry().height()-200);
-    QWidget * fenetre = new QWidget();
-    fenetre->setWindowFlags(Qt::Dialog | Qt::WindowTitleHint);
+    QWidget * window = new QWidget();
+    window->setWindowFlags(Qt::Dialog | Qt::WindowTitleHint);
 
-    QPushButton * run = new QPushButton(fenetre);
-    QPushButton * close = new QPushButton(fenetre);
-    QPushButton * pause = new QPushButton(fenetre);
-    QPushButton * stop = new QPushButton(fenetre);
+    QPushButton * run = new QPushButton(window);
+    QPushButton * close = new QPushButton(window);
+    QPushButton * pause = new QPushButton(window);
+    QPushButton * stop = new QPushButton(window);
     run->setFixedSize(K*DX/4,25);
     run->move(0,DY);
     run->setText("Run");
@@ -62,15 +72,19 @@ int main(int argc, char *argv[])
     close->move(3*K*DX/4,DY);
     close->setText("Close");
     close->setStyleSheet("QPushButton { font-size: 10pt; font-weight: bold; color: black ;}");
-    fenetre->setWindowTitle("Improved Ant Colony System Algorithm");
+    window->setWindowTitle("Improved Ant Colony System Algorithm");
 
+
+
+
+    /// Defining connexions and printing the window...
     SetThings * connexions = new SetThings[K];
     SetThings * global = new SetThings();
-    global->fenetre = fenetre;
+    global->window = window;
     Colony_view * cviews = new Colony_view[K];
     for(int i=0;i<K;i++)
     {
-        cviews[i].initialise(i,fenetre,DX,DY);
+        cviews[i].initialise(i,window,DX,DY);
         colonies[i].set_colony_view(cviews[i]);
         connexions[i].c = colonies + i;
         cviews[i].connect(&connexions[i]);
@@ -80,19 +94,19 @@ int main(int argc, char *argv[])
         colonies[i].plot(0);
     }
 
-    fenetre->show();
-    fenetre->setGeometry(
+    window->show();
+    window->setGeometry(
         QStyle::alignedRect(
             Qt::LeftToRight,
             Qt::AlignCenter,
-            fenetre->size(),
+            window->size(),
             a->desktop()->availableGeometry()
         )
     );
-    fenetre->setFixedSize(fenetre->size());
+    window->setFixedSize(window->size());
 
     QObject::connect(close, SIGNAL(clicked()), a, SLOT(quit()));
-    QObject::connect(close, SIGNAL(clicked()),global, SLOT(quitfenetre()));
+    QObject::connect(close, SIGNAL(clicked()),global, SLOT(quit_window()));
 
     QEventLoop loop;
     QObject::connect(run, SIGNAL(clicked()), &loop, SLOT(quit()));
@@ -104,8 +118,14 @@ int main(int argc, char *argv[])
     run->setStyleSheet("QPushButton { font-size: 10pt; font-weight: bold; color: grey;}");
 
 
-    /// Algorithme
-    while(!is_finished(colonies,K))/// A changer
+
+
+    ///****************************************************************************
+    ///
+    /// Algorithm is now launched (after the user clicked somewhere to stop a loop)
+    ///
+    ///****************************************************************************
+    while(!is_finished(colonies,K))
     {
         //#pragma omp parallel for
         for(int i=0;i<K;i++){
@@ -116,8 +136,17 @@ int main(int argc, char *argv[])
         a->processEvents();
     }
 
-    /// Affichage Final
+
+
+
+
+
+    /// Algorithm is over, final display
     for(int i=0;i<K;i++){
+
+        QDate date = QDate::currentDate();
+        QTime time = QTime::currentTime();
+
         colonies[i].write_result("Solution" + QString::number(i+1) + "_" + date.toString("dd-MM-yyyy") + "_"+time.toString("hh-mm-ss"));
         colonies[i].set_options(false,true);
         colonies[i].set_colony_view(cviews[i]);
@@ -125,13 +154,16 @@ int main(int argc, char *argv[])
         //a->processEvents();
     }
 
+
+
     stop->setEnabled(false);
     stop->setStyleSheet("QPushButton { font-size: 10pt; font-weight: bold; color: grey;}");
 
-    if(!fenetre->isVisible())a->quit();
+    if(!window->isVisible())a->quit();
 
     a->exec();
-    delete fenetre;
+    delete window;
     a->quit();
+
     return 0;
 }

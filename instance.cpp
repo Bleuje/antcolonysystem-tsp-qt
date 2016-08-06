@@ -1,11 +1,14 @@
 #include "instance.h"
 using namespace std;
 
-double norm(int x,int y){
+double norm(const int& x,const int& y){
     return sqrt(x*x + y*y);
 }
 
-void Instance::random_points(int n2,int dx,int dy)
+
+// Generates a random instance of problem
+
+void Instance::random_points(const int& n2,const int& dx,const int& dy)
 {
     srand (time(NULL));
 
@@ -27,6 +30,9 @@ void Instance::random_points(int n2,int dx,int dy)
     }
 }
 
+
+// Saves the problem in a file
+
 void Instance::write_points(QString s)
 {
     if(!QDir("problems").exists())
@@ -37,6 +43,9 @@ void Instance::write_points(QString s)
        out << x[i] << " " << y[i] << "\n";
 }
 
+
+// Creates a window to look for an already created problem
+
 QString Instance::ask_file()
 {
     QWidget *  fen = new QWidget();
@@ -45,6 +54,8 @@ QString Instance::ask_file()
     return fichier;
 }
 
+
+// loads a file by requesting it and loading it into an Instance then
 
 void Instance::load_file()
 {

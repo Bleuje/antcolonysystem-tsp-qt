@@ -10,7 +10,7 @@ Colony_view::~Colony_view()
     delete bar;
 }
 
-void Colony_view::load(QGraphicsScene * scene, int it, int step, double lg)
+void Colony_view::load(QGraphicsScene * scene,const int& it,const int& step,const double& lg)
 {
     view->setScene(scene);
     bar->setRange(0,it);
@@ -23,27 +23,27 @@ void Colony_view::load(QGraphicsScene * scene, int it, int step, double lg)
     but4->setText("Stop");
 }
 
-void Colony_view::initialise(int k,QWidget * fenetre,int dx2,int dy2)
+void Colony_view::initialise(const int& k,QWidget * window,const int& dx2,const int& dy2)
 {
     index = k+1;
     dx=dx2;
     dy=dy2;
-    view = new QGraphicsView(fenetre);
+    view = new QGraphicsView(window);
     view->setFixedSize(dx, max(10,dy-50));
     view->move(k*dx,25);
-    but = new QLabel(fenetre);
+    but = new QLabel(window);
     but->setFixedSize(dx/2, 25);
     but->move(k*dx,0);
-    but2 = new QPushButton(fenetre);
+    but2 = new QPushButton(window);
     but2->setFixedSize(dx/6, 25);
     but2->move(k*dx+dx/2,0);
-    but3 = new QPushButton(fenetre);
+    but3 = new QPushButton(window);
     but3->setFixedSize(dx/6, 25);
     but3->move(k*dx+4*dx/6,0);
-    but4 = new QPushButton(fenetre);
+    but4 = new QPushButton(window);
     but4->setFixedSize(dx/6, 25);
     but4->move(k*dx+5*dx/6,0);
-    bar = new QProgressBar(fenetre);
+    bar = new QProgressBar(window);
     bar->setRange(0,1);
     bar->setFixedSize(dx, 25);
     bar->move(k*dx,dy-25);
@@ -51,7 +51,7 @@ void Colony_view::initialise(int k,QWidget * fenetre,int dx2,int dy2)
 
 void Colony_view::connect(SetThings * s)
 {
-    QObject::connect(but2, SIGNAL(clicked()), s, SLOT(reglage()));
+    QObject::connect(but2, SIGNAL(clicked()), s, SLOT(setting()));
     QObject::connect(but3, SIGNAL(clicked()), s, SLOT(pause()));
     QObject::connect(but4, SIGNAL(clicked()), s, SLOT(stop()));
 }

@@ -37,21 +37,19 @@ const float EPSILON_GENERAL = 0.0000001;
 class Instance
 {
 protected:
-    int n; /// nombre de points
-    vector<int> x; /// abscisses des points
-    vector<int> y; /// ordonnées des points
-    vector<vector<double> > dist; /// distances entre les points
-    vector<list<int> > adj; /// A voir plus tard : graphe pour optimiser
+    int n; /// Number of points
+    vector<int> x; /// Points x-coordinate
+    vector<int> y; /// Points y-coordinate
+    vector<vector<double> > dist; /// Distance matrix
+    vector<list<int> > adj; /// DAG, unused so far
     QString ask_file();
-    vector<vector<bool> > sub_graph;
+    vector<vector<bool> > sub_graph; /// sub_graph is a matrix used to indicate the edges corresponding to the nearest neighbors
 public:
-    void random_points(int n2,int dx,int dy);
+    void random_points(const int &n2, const int &dx, const int &dy);
     void write_points(QString s);
     void load_file();
 };
 
-double norm(int x,int y);
-
-void random_points(Instance& inst,int n,int dx,int dy);
+double norm(const int &x, const int &y);
 
 #endif // INSTANCE_H_INCLUDED
