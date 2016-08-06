@@ -37,7 +37,7 @@ Now the algorithm is ready to be launched using the button "Run". You can pause 
 Format : length of the path, followed by the indexes of the points in the path.
 
 ## How to run the program
-With this repositary you should have all the source files necessary to compile the code in Qt Creator like me.
+With this repository you should have all the source files necessary to compile the code in Qt Creator like me.
 
 ## Results
 The algorithm with right parameters can achieve a distance less than 12.5 in a few seconds on 250 points from this benchmark (french website) :
@@ -47,7 +47,7 @@ http://labo.algo.free.fr/defi250/classement.php?id=1
 ## Known flaws / future improvements
 - The code should be completely in english, or at least in only one language.
 - There should be more comments to describe methods, and to document constraints on parameters.
-- Classes should be implemented in a way such that looking at the corresponding code is note necessary.
+- Classes should be implemented in a way such that looking at the corresponding code isn't necessary.
 - Variables and functions should choose a strict naming convention.
 - There shouldn't be as many constants that haven't been clearly defined.
 - The architecture of the code regarding the use of buttons could be much better.
