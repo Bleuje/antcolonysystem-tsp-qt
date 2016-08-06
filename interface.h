@@ -5,13 +5,13 @@
 
 using namespace std;
 
-class Colonie;
+class Colony;
 
 class SetThings : public QObject
 {
     Q_OBJECT
 public:
-    Colonie * c;
+    Colony * c;
     QWidget * fenetre;
 public slots:
     void reglage();

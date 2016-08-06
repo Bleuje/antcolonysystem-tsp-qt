@@ -5,11 +5,11 @@
 
 #include "interface.h"
 
-class Colonie;
+class Colony;
 
 class SetThings;
 
-class CView
+class Colony_view
 {
 private:
     int index;
@@ -22,7 +22,7 @@ private:
     QPushButton * but3;
     QPushButton * but4;
 public:
-    ~CView();
+    ~Colony_view();
     void connect(SetThings * s);
     void initialise(int k,QWidget * fenetre,int dx2,int dy2);
     void load(QGraphicsScene * scene, int it,int step,double lg);

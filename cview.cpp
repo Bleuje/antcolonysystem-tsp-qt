@@ -1,6 +1,6 @@
 #include "cview.h"
 
-CView::~CView()
+Colony_view::~Colony_view()
 {
     delete view;
     delete but;
@@ -10,7 +10,7 @@ CView::~CView()
     delete bar;
 }
 
-void CView::load(QGraphicsScene * scene, int it, int step, double lg)
+void Colony_view::load(QGraphicsScene * scene, int it, int step, double lg)
 {
     view->setScene(scene);
     bar->setRange(0,it);
@@ -23,7 +23,7 @@ void CView::load(QGraphicsScene * scene, int it, int step, double lg)
     but4->setText("Stop");
 }
 
-void CView::initialise(int k,QWidget * fenetre,int dx2,int dy2)
+void Colony_view::initialise(int k,QWidget * fenetre,int dx2,int dy2)
 {
     index = k+1;
     dx=dx2;
@@ -49,7 +49,7 @@ void CView::initialise(int k,QWidget * fenetre,int dx2,int dy2)
     bar->move(k*dx,dy-25);
 }
 
-void CView::connect(SetThings * s)
+void Colony_view::connect(SetThings * s)
 {
     QObject::connect(but2, SIGNAL(clicked()), s, SLOT(reglage()));
     QObject::connect(but3, SIGNAL(clicked()), s, SLOT(pause()));

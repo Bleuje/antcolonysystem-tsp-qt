@@ -16,7 +16,7 @@ int main(int argc, char *argv[])
     /// Initialisation du problème
     int K,n,DX,DY;
     bool choice = ask_main_parameters(K,n,DX,DY);
-    Colonie c;
+    Colony c;
     QDate date = QDate::currentDate();
     QTime time = QTime::currentTime();
     c.random_points(n,DX,DY);
@@ -29,10 +29,10 @@ int main(int argc, char *argv[])
     c.ask_parameters();
 
     /// Creation des colonies
-    Colonie * colonies = new Colonie[K];
+    Colony * colonies = new Colony[K];
     for(int i=0;i<K;i++){
         colonies[i]=c;
-        colonies[i].initialise_colonie();
+        colonies[i].initialize_colony();
     }
 
 
@@ -67,11 +67,11 @@ int main(int argc, char *argv[])
     SetThings * connexions = new SetThings[K];
     SetThings * global = new SetThings();
     global->fenetre = fenetre;
-    CView * cviews = new CView[K];
+    Colony_view * cviews = new Colony_view[K];
     for(int i=0;i<K;i++)
     {
         cviews[i].initialise(i,fenetre,DX,DY);
-        colonies[i].setCView(cviews[i]);
+        colonies[i].set_colony_view(cviews[i]);
         connexions[i].c = colonies + i;
         cviews[i].connect(&connexions[i]);
         QObject::connect(pause, SIGNAL(clicked()),&connexions[i], SLOT(pause()));
@@ -105,12 +105,12 @@ int main(int argc, char *argv[])
 
 
     /// Algorithme
-    while(!isfinished(colonies,K))/// A changer
+    while(!is_finished(colonies,K))/// A changer
     {
         //#pragma omp parallel for
         for(int i=0;i<K;i++){
             colonies[i].colonie_steps(1);
-            colonies[i].setCView(cviews[i]);
+            colonies[i].set_colony_view(cviews[i]);
             colonies[i].plot(8);
         }
         a->processEvents();
@@ -119,8 +119,8 @@ int main(int argc, char *argv[])
     /// Affichage Final
     for(int i=0;i<K;i++){
         colonies[i].write_result("Solution" + QString::number(i+1) + "_" + date.toString("dd-MM-yyyy") + "_"+time.toString("hh-mm-ss"));
-        colonies[i].setOptions(false,true);
-        colonies[i].setCView(cviews[i]);
+        colonies[i].set_options(false,true);
+        colonies[i].set_colony_view(cviews[i]);
         colonies[i].plot(1);
         //a->processEvents();
     }

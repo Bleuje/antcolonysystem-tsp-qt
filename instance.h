@@ -30,6 +30,10 @@ const int K_d = 4;
 const int N_d = 30;
 const int NBV_d = 500;
 
+const int END_OF_WALK = 10;
+const float EPSILON_WEIGHT = 0.000001;
+const float EPSILON_GENERAL = 0.0000001;
+
 class Instance
 {
 protected:
@@ -39,7 +43,7 @@ protected:
     vector<vector<double> > dist; /// distances entre les points
     vector<list<int> > adj; /// A voir plus tard : graphe pour optimiser
     QString ask_file();
-    vector<vector<bool> > g;
+    vector<vector<bool> > sub_graph;
 public:
     void random_points(int n2,int dx,int dy);
     void write_points(QString s);

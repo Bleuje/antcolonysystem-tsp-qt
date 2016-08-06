@@ -77,7 +77,7 @@ void SetThings::reglage()
 
 void SetThings::pause()
 {
-    c->setPause();
+    c->set_pause();
     c->plot(8);
 }
 
