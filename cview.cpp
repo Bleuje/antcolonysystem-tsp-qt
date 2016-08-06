@@ -23,7 +23,7 @@ void Colony_view::load(QGraphicsScene * scene,const int& it,const int& step,cons
     but4->setText("Stop");
 }
 
-void Colony_view::initialise(const int& k,QWidget * window,const int& dx2,const int& dy2)
+void Colony_view::initialize(const int& k,QWidget * window,const int& dx2,const int& dy2)
 {
     index = k+1;
     dx=dx2;

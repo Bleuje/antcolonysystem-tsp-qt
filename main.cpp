@@ -84,7 +84,7 @@ int main(int argc, char *argv[])
     Colony_view * cviews = new Colony_view[K];
     for(int i=0;i<K;i++)
     {
-        cviews[i].initialise(i,window,DX,DY);
+        cviews[i].initialize(i,window,DX,DY);
         colonies[i].set_colony_view(cviews[i]);
         connexions[i].c = colonies + i;
         cviews[i].connect(&connexions[i]);

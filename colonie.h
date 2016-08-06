@@ -9,7 +9,7 @@ using namespace std;
 
 const double Beta = 2.;
 const double Alpha = 6.;
-const int Q = 10000;
+const int Q = 10;
 const int MAX_IT = 250;
 const double Rho = 0.95;
 const double E = 20.;

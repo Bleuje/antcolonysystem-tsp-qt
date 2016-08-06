@@ -200,7 +200,7 @@ vector<int> Colony::random_walk(const int& f)
 
 void Colony::add_pheromones_from_walk(vector<int>& path,double length,double q)
 {
-    length*=length/10; /// WTF
+    //length*=length/10; /// WTF
     for(int i=0;i+1<int(path.size());i++)
     {
         etat.add_pheromone[path[i]][path[i+1]]+=q/length;
@@ -446,7 +446,7 @@ void Colony::ask_parameters()
     betabox->setRange(0.,10.);
     betabox->setValue(c.beta);
     QDoubleSpinBox * qbox = new QDoubleSpinBox;
-    qbox->setRange(10.,10000000.);
+    qbox->setRange(1.,10000000.);
     qbox->setValue(c.q);
     QDoubleSpinBox * rhobox = new QDoubleSpinBox;
     rhobox->setRange(0.,1.);
