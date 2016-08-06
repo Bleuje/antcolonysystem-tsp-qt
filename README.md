@@ -1,7 +1,7 @@
 # An implementation and visualization of the Ant Colony System algorithm.
 
 ## Introduction
-A project about visualizing the Ant Colony System algorithm (with some local search improvements) using C++ with Qt. It was done as a project to learn how to create a little software. It was coded with Qt Creator.
+This is a project about visualizing the Ant Colony System algorithm (with some local search improvements) using C++ with Qt. It was done as a project to learn how to create a little software. It was coded with Qt Creator.
 
 Ant Colony System is an algorithm to optimize the Traveling Salesman Problem (TSP) : finding the shortest hamiltonian cycle in a complete graph.
 
@@ -16,7 +16,7 @@ Here's what the main window looks like while the algorithm is running :
 I found details about the Ant Colony System algorithm in this french paper :
 http://www.i3s.unice.fr/~crescenz/publications/travaux_etude/colonies_fourmis-200605-rapport.pdf
 
-Then I added a local search (it is still optional) after each ant walk : it tries to reverse or shift subsequences of the permutation many times to improve it. It greatly increases the quality of results. 
+Then I added a local search (it is still optional) after each ant walk : it tries to reverse or shift subsequences of the permutation many times to improve it. It greatly increases the quality of results. Actually most of the important work seems to be done by local search, and ant pheromones can be seen as an improvement of local search.
 
 ## Graphical user interface
 ### Defining the set of points to work with.
@@ -44,6 +44,9 @@ The algorithm with right parameters can achieve a distance less than 12.5 in a f
 
 http://labo.algo.free.fr/defi250/classement.php?id=1
 
+It achieved 11.87 (best cycle seems to be about 11.8), without looking seriously for good parameters. The other results on the website are old, but the complexity of the problem is such that the algorithm should be still more important than computer speed.
+
 ## Known flaws / future improvements
 - There shouldn't be as many constants that haven't been clearly defined.
 - The architecture of the code regarding the use of buttons could be better.
+- Long-term improvement : apply ant colony to other problems than TSP.
