@@ -7,6 +7,8 @@ QMAKE_CXXFLAGS_RELEASE *= -O3
 QMAKE_CXXFLAGS+= -fopenmp
 QMAKE_LFLAGS +=  -fopenmp
 
+QMAKE_CXXFLAGS += -std=c++11
+
 QT       += core gui
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
