@@ -37,7 +37,8 @@ Now the algorithm is ready to be launched using the button "Run". You can pause 
 Format : length of the path, followed by the indexes of the points in the path.
 
 ## How to run the program
-With this repository you should have all the source files necessary to compile the code in Qt Creator like me.
+With this repository you should have all the source files necessary to compile the code in Qt Creator like me :
+Open ants2.pro with Qt Creator.
 
 ## Results
 The algorithm with right parameters can achieve a distance less than 12.5 in a few seconds on 250 points from this benchmark (french website) :
