@@ -1,4 +1,4 @@
-19/10/2019 note : realized that the algorithm should probably be called "Ant System" and not "Ant Colony System"
+19/10/2019 note : I realized that the algorithm should probably be called "Ant System" and not "Ant Colony System"
 
 # An implementation and visualization of the Ant Colony System algorithm.
 
