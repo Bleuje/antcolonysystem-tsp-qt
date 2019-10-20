@@ -453,10 +453,10 @@ void Colony::ask_parameters()
     if(c.m<0)c.m=n;
     mbox->setValue(c.m);
     QDoubleSpinBox * alphabox = new QDoubleSpinBox;
-    alphabox->setRange(0.,10.);
+    alphabox->setRange(0.,40.);
     alphabox->setValue(c.alpha);
     QDoubleSpinBox * betabox = new QDoubleSpinBox;
-    betabox->setRange(0.,10.);
+    betabox->setRange(0.,20.);
     betabox->setValue(c.beta);
     QDoubleSpinBox * qbox = new QDoubleSpinBox;
     qbox->setRange(1.,10000000.);
