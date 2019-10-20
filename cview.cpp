@@ -17,6 +17,7 @@ void Colony_view::load(QGraphicsScene * scene,const int& it,const int& step,cons
     bar->setValue(step);
     bar->setFormat(QString::number(step) + " / " + QString::number(it));
     but->setText((lg<1e10?QString::number(lg):"Nothing"));
+    //but->setText(QString::number((long long)(&scene)));
     but->setStyleSheet("QLabel {font-size: 10pt; font-weight: bold;qproperty-alignment: AlignCenter;}");
     but2->setText("Edit");
     but3->setText("Pause");

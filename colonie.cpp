@@ -26,6 +26,7 @@ Colony::~Colony()
 // Sets/resets some colony parameters/matrices.
 void Colony::initialize_colony()
 {
+    scene = new QGraphicsScene();
     vector<vector<double> > empty_matrix = vector<vector<double> >(n,vector<double>(n,0));
     etat.pheromone = vector<vector<double> >(n,vector<double>(n,10));;
     etat.add_pheromone = empty_matrix;
@@ -114,7 +115,7 @@ void Colony::ant_try(const int& f)
     /// Local search optimization (update of the best path is included) - TO DO : user interface to control this
     for(int tt=0;tt<param.number_of_mutations;tt++)
     {
-        //test
+        shift_all_path(rand()%n,path2);
         shift(1,path,path2,length,length2);
         shift(2,path,path2,length,length2);
         if(tt%2==0) reverse(3,path,path2,length,length2);
@@ -250,8 +251,19 @@ void Colony::update(vector<int>& path,vector<int>& path2,double& length,const do
     }
 }
 
+// Random shift of all the sequence so that the borders are not special
+void Colony::shift_all_path(const int& kk,vector<int>& path2)
+{
+    vector<int> path3 = path2;
+    for(int i=0;i<n;i++)
+    {
+        path2[i] = path3[(i+kk)%n];
+    }
+    path2[int(path2.size())-1]=path2[0];
+}
 
-// Tries to improve by shifting by one in all continuous subsequences of length k
+
+// Tries to improve by shifting by one in all continuous subsequences of length k+1
 void Colony::shift(const int& kk,vector<int>& path,vector<int>& path2,double& length,double& length2)
 {
     for(int i=0;i<n-kk;i++)
