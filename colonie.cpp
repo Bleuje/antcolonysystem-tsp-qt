@@ -12,7 +12,7 @@ using namespace std;
 // Constructor
 Colony::Colony()
 {
-    scene = new QGraphicsScene();
+    //scene = new QGraphicsScene();
 };
 
 
