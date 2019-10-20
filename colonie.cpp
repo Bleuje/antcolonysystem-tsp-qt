@@ -115,13 +115,12 @@ void Colony::ant_try(const int& f)
     /// Local search optimization (update of the best path is included) - TO DO : user interface to control this
     for(int tt=0;tt<param.number_of_mutations;tt++)
     {
-        shift_all_path(rand()%n,path2);
-        shift(1,path,path2,length,length2);
-        shift(2,path,path2,length,length2);
-        if(tt%2==0) reverse(3,path,path2,length,length2);
-        if(tt%2==0) shift(3,path,path2,length,length2);
-        shift(3 + rand()%(n-3),path,path2,length,length2);
-        reverse(3 + rand()%(n-3),path,path2,length,length2);
+        shift(2,path,length);
+        shift(3,path,length);
+        if(tt%2==0) reverse(3,path,length);
+        if(tt%2==0) shift(4,path,length);
+        shift(4 + rand()%(n-4),path,length);
+        reverse(4 + rand()%(n-4),path,length);
     }
 
     /// The ant walk has been optimized
@@ -226,15 +225,14 @@ double Colony::compute_length(const vector<int>& path)
 // Updates the best paths, on different levels.
 // It does a comparison between path and path2,
 // But also updates the best path of the colony at the current iteration, and globally
-void Colony::update(vector<int>& path,vector<int>& path2,double& length,const double& length2)
+void Colony::update(vector<int>& path,const vector<int>& path2,double& length,const double& length2)
 {
-    /// path2 comes back to path, but before, path becomes path2 if path2 was better
+    /// path becomes path2 if path2 was better
     if(length2<length)
     {
         length = length2;
         path = path2;
     }
-    path2 = path;
 
     /// Updates best path globally
     if(length<etat.min_length)
@@ -251,48 +249,40 @@ void Colony::update(vector<int>& path,vector<int>& path2,double& length,const do
     }
 }
 
-// Random shift of all the sequence so that the borders are not special
-void Colony::shift_all_path(const int& kk,vector<int>& path2)
+
+// Tries to improve by shifting by one in all continuous subsequences of length k
+void Colony::shift(const int& kk,vector<int>& path,double& length)
 {
-    vector<int> path3 = path2;
+    int num = kk-1;
     for(int i=0;i<n;i++)
     {
-        path2[i] = path3[(i+kk)%n];
-    }
-    path2[int(path2.size())-1]=path2[0];
-}
-
-
-// Tries to improve by shifting by one in all continuous subsequences of length k+1
-void Colony::shift(const int& kk,vector<int>& path,vector<int>& path2,double& length,double& length2)
-{
-    for(int i=0;i<n-kk;i++)
-    {
+        vector<int> path2 = path;
         int aux = path2[i];
-        for(int ii=i;ii<i+kk;ii++)
+        for(int ii=i;ii<i+num;ii++)
         {
-            path2[ii]=path2[ii+1];
+            path2[ii%n]=path2[(ii+1)%n];
         }
-        path2[i+kk]=aux;
-        path2[int(path2.size())-1]=path2[0];
-        length2=compute_length(path2);
+        path2[(i+num)%n]=aux;
+        path2[n]=path2[0];
+        double length2=compute_length(path2);
         update(path,path2,length,length2);
     }
 }
 
 
 // Tries to improve by reversing all continuous subsequences of length k
-void Colony::reverse(const int& kk,vector<int>& path,vector<int>& path2,double& length,double& length2)
+void Colony::reverse(const int& kk,vector<int>& path,double& length)
 {
-    for(int i=0;i<n-kk;i++)
+    for(int i=0;i<n;i++)
     {
+        vector<int> path2 = path;
         vector<int> path3 = path2;
         for(int ii=i;ii<i+kk;ii++)
         {
-            path2[ii]=path3[i+kk-1-(ii-i)];
+            path2[ii%n]=path3[(i+kk-1-(ii-i))%n];
         }
-        path2[int(path2.size())-1]=path2[0];
-        length2=compute_length(path2);
+        path2[n]=path2[0];
+        double length2=compute_length(path2);
         update(path,path2,length,length2);
     }
 }

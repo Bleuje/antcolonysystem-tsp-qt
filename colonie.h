@@ -66,10 +66,9 @@ private:
     vector<int> random_walk(const int& f);
     void add_pheromones_from_walk(const vector<int>& path,const double& length,const double& q);
     double compute_length(const vector<int>& path);
-    void update(vector<int>& path,vector<int>& path2,double& length,const double& length2);
-    void shift_all_path(const int &kk, vector<int>& path);
-    void shift(const int &kk, vector<int>& path, vector<int>& path2, double& length, double& length2);
-    void reverse(const int& kk,vector<int>& path,vector<int>& path2,double& length,double& length2);
+    void update(vector<int>& path,const vector<int>& path2,double& length,const double& length2);
+    void shift(const int &kk, vector<int>& path, double& length);
+    void reverse(const int& kk,vector<int>& path, double& length);
     void ant_try(const int& f);
     void update_pheromones();
     void plot_points();
