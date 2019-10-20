@@ -114,6 +114,7 @@ void Colony::ant_try(const int& f)
     /// Local search optimization (update of the best path is included) - TO DO : user interface to control this
     for(int tt=0;tt<param.number_of_mutations;tt++)
     {
+        //test
         shift(1,path,path2,length,length2);
         shift(2,path,path2,length,length2);
         if(tt%2==0) reverse(3,path,path2,length,length2);
