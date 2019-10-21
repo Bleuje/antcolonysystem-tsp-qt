@@ -28,7 +28,7 @@ void Colony::initialize_colony()
 {
     scene = new QGraphicsScene();
     vector<vector<double> > empty_matrix = vector<vector<double> >(n,vector<double>(n,0));
-    etat.pheromone = vector<vector<double> >(n,vector<double>(n,10));;
+    etat.pheromone = vector<vector<double> >(n,vector<double>(n,INITIAL_PHEROMONES));;
     etat.add_pheromone = empty_matrix;
 };
 
@@ -86,6 +86,7 @@ void Colony::colonie_steps(const int& k)
         }
         etat.average_length/=param.m;
         add_pheromones_from_walk(etat.best_path_elite,etat.min_length_elite,param.e*param.q);
+        add_pheromones_from_walk(etat.best_path,etat.min_length,0.25*param.e*param.q);
         update_pheromones();
         etat.step++;
     }
@@ -116,11 +117,17 @@ void Colony::ant_try(const int& f)
     for(int tt=0;tt<param.number_of_mutations;tt++)
     {
         shift(2,path,length);
-        shift(3,path,length);
-        if(tt%2==0) reverse(3,path,length);
-        if(tt%2==0) shift(4,path,length);
-        shift(4 + rand()%(n-4),path,length);
-        reverse(4 + rand()%(n-4),path,length);
+        int MAX_LEN = min(n,param.mutation_depth);
+        for(int len=3;len<MAX_LEN;len++){
+            shift(len,path,length);
+            if(len>=4) shift2(len,2,path,length);
+            if(len>=5) shift2(len,3,path,length);
+            reverse(len,path,length);
+        }
+        shift(MAX_LEN + rand()%(n-MAX_LEN),path,length);
+        reverse(MAX_LEN + rand()%(n-MAX_LEN),path,length);
+        int len = MAX_LEN + rand()%(n-MAX_LEN-2);
+        shift2(len,2+rand()%(len-3),path,length);
     }
 
     /// The ant walk has been optimized
@@ -263,6 +270,25 @@ void Colony::shift(const int& kk,vector<int>& path,double& length)
             path2[ii%n]=path2[(ii+1)%n];
         }
         path2[(i+num)%n]=aux;
+        path2[n]=path2[0];
+        double length2=compute_length(path2);
+        update(path,path2,length,length2);
+    }
+}
+
+// Tries to improve by shifting by a number sh in all continuous subsequences of length k
+void Colony::shift2(const int& kk,const int& sh,vector<int>& path,double& length)
+{
+    for(int i=0;i<n;i++)
+    {
+        vector<int> path2 = path;
+        vector<int> path3 = path2;
+        for(int ii=i;ii<i+kk;ii++)
+        {
+            int rel = ii-i;
+            int rel2 = (rel+sh)%kk;
+            path2[(i+rel)%n]=path3[(i+rel2)%n];
+        }
         path2[n]=path2[0];
         double length2=compute_length(path2);
         update(path,path2,length,length2);
@@ -440,7 +466,7 @@ void Colony::ask_parameters()
     window0->setStyleSheet("QPushButton { font-size: 10pt; background-color: lightgrey }");
     QSpinBox * mbox = new QSpinBox;
     mbox->setRange(1,1000);
-    if(c.m<0)c.m=n;
+    if(c.m<0)c.m=n/4;
     mbox->setValue(c.m);
     QDoubleSpinBox * alphabox = new QDoubleSpinBox;
     alphabox->setRange(0.,40.);
@@ -463,6 +489,9 @@ void Colony::ask_parameters()
     QSpinBox * number_of_mutationsbox = new QSpinBox;
     number_of_mutationsbox->setRange(0,10000);
     number_of_mutationsbox->setValue(c.number_of_mutations);
+    QSpinBox * mutation_depthbox = new QSpinBox;
+    mutation_depthbox->setRange(4,n-4);
+    mutation_depthbox->setValue(c.mutation_depth);
     QSpinBox * number_of_neighborsbox = new QSpinBox;
     if(c.number_of_neighbors<0)c.number_of_neighbors=NBV_d;
     number_of_neighborsbox->setRange(5,1000);
@@ -479,6 +508,7 @@ void Colony::ask_parameters()
     formLayout->addRow("Number of iterations : ", itbox);
     formLayout->addRow("Elite : ", ebox);
     formLayout->addRow("Local search iterations : ", number_of_mutationsbox);
+    formLayout->addRow("Mutation depth : ", mutation_depthbox);
     formLayout->addRow("Number max of neighboors : ", number_of_neighborsbox);
     formLayout->addRow("Show pheromones ", gpbox);
     gpbox->setChecked(display_pheromones);
@@ -506,6 +536,7 @@ void Colony::ask_parameters()
     param.max_it = itbox->value();
     param.e = ebox->value();
     param.number_of_mutations = number_of_mutationsbox->value();
+    param.mutation_depth = mutation_depthbox->value();
     display_pheromones = gpbox->checkState();
     display_best_walk = gbbox->checkState();
     set_neighbors_graph(number_of_neighborsbox->value());

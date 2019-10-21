@@ -7,14 +7,16 @@ using namespace std;
 
 
 
-const double Beta = 2.;
-const double Alpha = 6.;
+const double Beta = 3.0;
+const double Alpha = 1.5;
 const int Q = 10;
 const int MAX_IT = 250;
 const double Rho = 0.95;
-const double E = 20.;
-const int NMut = 100;
+const double E = 10.;
+const int NMut = 80;
+const int MUT_DEPTH = 10;
 const double BIG_DOUBLE = 1e15;
+const double INITIAL_PHEROMONES = 5.0;
 
 
 
@@ -29,8 +31,9 @@ struct Colony_parameters
     double q = Q; /// Quantity of pheromones factor
     double rho = Rho; /// Coefficient of pheromones disappearance
     double max_it = MAX_IT; /// Maximum number of iterations
-    double e = E; /// Importance og the elitist path
+    double e = E; /// Importance of the elitist path
     int number_of_mutations = NMut; /// Number of mutations (local search optimization)
+    int mutation_depth = MUT_DEPTH; /// Max length of mutated subsequences (local search optimization)
     int number_of_neighbors = -1; /// Number of neighbors for each node (in the sub_graph)
 };
 
@@ -68,6 +71,7 @@ private:
     double compute_length(const vector<int>& path);
     void update(vector<int>& path,const vector<int>& path2,double& length,const double& length2);
     void shift(const int &kk, vector<int>& path, double& length);
+    void shift2(const int &kk, const int &sh, vector<int>& path, double& length);
     void reverse(const int& kk,vector<int>& path, double& length);
     void ant_try(const int& f);
     void update_pheromones();
