@@ -21,13 +21,22 @@ void Instance::random_points(const int& n2,const int& dx,const int& dy)
         x[i] = dx/10 + rand()%(dx-2*dx/10);
         y[i] = dy/10 + rand()%(dy-2*dy/10);
     }
+    double mx = 0.0;
     for(int i=0;i<n;i++){
         for(int j=0;j<i;j++){
             double calcul = norm(x[i]-x[j],y[i]-y[j]);
+            mx = max(mx,calcul);
             dist[i][j] = calcul;
             dist[j][i] = calcul;
         }
     }
+    for(int i=0;i<n;i++){
+        for(int j=0;j<i;j++){
+            dist[i][j] /= mx;
+            dist[j][i] /= mx;
+        }
+    }
+    normalization = mx;
 }
 
 
@@ -71,11 +80,20 @@ void Instance::load_file()
         in >> x[i];
         in >> y[i];
     }
+    double mx = 0.0;
     for(int i=0;i<n;i++){
         for(int j=0;j<i;j++){
             double calcul = norm(x[i]-x[j],y[i]-y[j]);
+            mx = max(mx,calcul);
             dist[i][j] = calcul;
             dist[j][i] = calcul;
         }
     }
+    for(int i=0;i<n;i++){
+        for(int j=0;j<i;j++){
+            dist[i][j] /= mx;
+            dist[j][i] /= mx;
+        }
+    }
+    normalization = mx;
 }

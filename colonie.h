@@ -8,7 +8,7 @@ using namespace std;
 
 
 const double Beta = 3.0;
-const double Alpha = 1.5;
+const double Alpha = 1.0;
 const int Q = 10;
 const int MAX_IT = 250;
 const double Rho = 0.95;
@@ -16,7 +16,7 @@ const double E = 10.;
 const int NMut = 80;
 const int MUT_DEPTH = 10;
 const double BIG_DOUBLE = 1e15;
-const double INITIAL_PHEROMONES = 5.0;
+const double INITIAL_PHEROMONES = 100.0;
 
 
 

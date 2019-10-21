@@ -451,7 +451,7 @@ void Colony::plot(int width)
 // Sends the information to an object that represents a ploted colony (colony_view).
 void Colony::set_colony_view(Colony_view & cview)
 {
-    cview.load(scene,param.max_it,etat.step,etat.min_length);
+    cview.load(scene,param.max_it,etat.step,etat.min_length,normalization);
 }
 
 

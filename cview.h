@@ -25,7 +25,7 @@ public:
     ~Colony_view();
     void connect(SetThings * s);
     void initialize(const int& k,QWidget * window,const int& dx2,const int& dy2);
-    void load(QGraphicsScene * scene,const int& it,const int& step,const double& lg);
+    void load(QGraphicsScene * scene,const int& it,const int& step,const double& lg,const double& norm);
 };
 
 #endif // CVIEW_H

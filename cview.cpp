@@ -10,13 +10,13 @@ Colony_view::~Colony_view()
     delete bar;
 }
 
-void Colony_view::load(QGraphicsScene * scene,const int& it,const int& step,const double& lg)
+void Colony_view::load(QGraphicsScene * scene,const int& it,const int& step,const double& lg,const double& norm)
 {
     view->setScene(scene);
     bar->setRange(0,it);
     bar->setValue(step);
     bar->setFormat(QString::number(step) + " / " + QString::number(it));
-    but->setText((lg<1e10?QString::number(lg):"Nothing"));
+    but->setText((lg<1e10?QString::number(lg*norm):"Nothing"));
     //but->setText(QString::number((long long)(&scene)));
     but->setStyleSheet("QLabel {font-size: 10pt; font-weight: bold;qproperty-alignment: AlignCenter;}");
     but2->setText("Edit");

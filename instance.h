@@ -44,6 +44,7 @@ protected:
     vector<list<int> > adj; /// DAG, unused so far
     QString ask_file();
     vector<vector<bool> > sub_graph; /// sub_graph is a matrix used to indicate the edges corresponding to the nearest neighbors
+    double normalization;
 public:
     void random_points(const int &n2, const int &dx, const int &dy);
     void write_points(QString s);
