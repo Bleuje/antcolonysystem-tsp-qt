@@ -12,24 +12,26 @@ using namespace std;
 // Constructor
 Colony::Colony()
 {
-
+    //scene = new QGraphicsScene();
 };
 
 
 // Destructor
 Colony::~Colony()
 {
-    delete scene;
+    if(already_initialized) delete scene;
 }
 
 
 // Sets/resets some colony parameters/matrices.
 void Colony::initialize_colony()
 {
+    if(already_initialized) delete scene;
     scene = new QGraphicsScene();
     vector<vector<double> > empty_matrix = vector<vector<double> >(n,vector<double>(n,0));
     etat.pheromone = vector<vector<double> >(n,vector<double>(n,INITIAL_PHEROMONES));;
     etat.add_pheromone = empty_matrix;
+    already_initialized = true;
 };
 
 
@@ -81,7 +83,7 @@ void Colony::colonie_steps(const int& k)
         int start = rand()%n;
         for(int f=0;f<param.m;f++)
         {
-            int ff = (f+start)%n;
+            int ff = (4*f+start)%n;
             ant_try(ff);
         }
         etat.average_length/=param.m;
@@ -204,7 +206,7 @@ vector<int> Colony::random_walk(const int& f)
 
 
 // Adds pheromones from a path,
-// not on the pheromones table but on the table indicating the pheromones that will be added at the en of the iteration
+// not on the pheromones table but on the table indicating the pheromones that will be added at the end of the iteration
 
 void Colony::add_pheromones_from_walk(const vector<int>& path,const double& length, const double &q)
 {

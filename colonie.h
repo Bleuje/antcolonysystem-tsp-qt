@@ -16,7 +16,7 @@ const double E = 10.;
 const int NMut = 80;
 const int MUT_DEPTH = 10;
 const double BIG_DOUBLE = 1e15;
-const double INITIAL_PHEROMONES = 100.0;
+const double INITIAL_PHEROMONES = 250.0;
 
 
 
@@ -82,6 +82,7 @@ private:
     bool display_pheromones = true;
     bool display_best_walk = true;
     bool pause = false;
+    bool already_initialized = false;
 
 public:
     Colony();
