@@ -549,6 +549,7 @@ void Colony::ask_parameters()
     delete itbox;
     delete ebox;
     delete number_of_mutationsbox;
+    delete mutation_depthbox;
     delete gpbox;
     delete gbbox;
     delete number_of_neighborsbox;
