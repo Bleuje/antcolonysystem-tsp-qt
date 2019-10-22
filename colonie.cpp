@@ -12,7 +12,7 @@ using namespace std;
 // Constructor
 Colony::Colony()
 {
-    //scene = new QGraphicsScene();
+
 };
 
 
@@ -86,7 +86,7 @@ void Colony::colonie_steps(const int& k)
         }
         etat.average_length/=param.m;
         add_pheromones_from_walk(etat.best_path_elite,etat.min_length_elite,param.e*param.q);
-        add_pheromones_from_walk(etat.best_path,etat.min_length,0.25*param.e*param.q);
+        add_pheromones_from_walk(etat.best_path,etat.min_length,1.0*param.e*param.q);
         update_pheromones();
         etat.step++;
     }

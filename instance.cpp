@@ -5,6 +5,11 @@ double norm(const int& x,const int& y){
     return sqrt(x*x + y*y);
 }
 
+// Destructor
+Instance::~Instance()
+{
+
+}
 
 // Generates a random instance of problem
 
