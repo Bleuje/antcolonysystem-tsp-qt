@@ -397,18 +397,20 @@ void Colony::stop()
 
 
 // Adds the problem points to the colony scene
-void Colony::plot_points()
+void Colony::plot_points(int width)
 {
     QPen pen2(Qt::blue);
-    int radius = 3;
+    int radius = 2*width;
     for(int i = 0; i < int(x.size()); i++)
-        scene->addEllipse(x[i]-radius, y[i]-radius, 2*radius, 2*radius,pen2,QBrush(Qt::blue,Qt::SolidPattern));
+        scene->addEllipse((x[i]-radius), (y[i]-radius), 2*radius, 2*radius,pen2,QBrush(Qt::blue,Qt::SolidPattern));
 }
 
 
 // Adds the current best current best result to the colony scene
-void Colony::plot_best_result()
+void Colony::plot_best_result(int width)
 {
+    if(etat.step==0)width=0;
+
     QVector <QPointF> points;
     vector<int> path = etat.best_path;
 
@@ -416,16 +418,17 @@ void Colony::plot_best_result()
        points.append(QPointF(x[path[i]], y[path[i]]));
 
     QPen pen(Qt::red);
-    pen.setWidth(1);
+    pen.setWidth(width);
     for(int i = 0; i+1< points.size(); i++)
         scene->addLine(points[i].x(), points[i].y(), points[i+1].x(), points[i+1].y(),pen);
 }
 
 
 // Adds pheromones to the colony scene
-void Colony::plot_pheromones(int& width)
+void Colony::plot_pheromones(int width)
 {
     if(etat.step==0)width=0;
+
     QPen pen(Qt::green);
     for(int i=0;i<n;i++)
     {
@@ -441,19 +444,27 @@ void Colony::plot_pheromones(int& width)
 
 
 // Puts things on the scene
-void Colony::plot(int width)
+void Colony::plot(const double&f)
 {
     scene->clear();
-    if(display_pheromones)plot_pheromones(width);
-    if(display_best_walk)plot_best_result();
-    plot_points();
+    plot_points(1.0);
+
+    double w = scene->sceneRect().width();
+    double h = scene->sceneRect().height();
+
+    double pw = f*8.0*max(1.0*w/DX,1.0*h/DY);
+
+    scene->clear();
+    if(display_pheromones)plot_pheromones(pw);
+    if(display_best_walk)plot_best_result(pw/6.0);
+    plot_points(pw/6.0);
 }
 
 
 // Sends the information to an object that represents a ploted colony (colony_view).
 void Colony::set_colony_view(Colony_view & cview)
 {
-    cview.load(scene,param.max_it,etat.step,etat.min_length,normalization);
+    cview.load(scene,param.max_it,etat.step,etat.min_length*normalization);
 }
 
 

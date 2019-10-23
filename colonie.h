@@ -7,14 +7,14 @@ using namespace std;
 
 
 
-const double Beta = 3.0;
-const double Alpha = 1.0;
+const double Beta = 5.0;
+const double Alpha = 2.0;
 const int Q = 10;
 const int MAX_IT = 250;
 const double Rho = 0.95;
 const double E = 10.;
-const int NMut = 80;
-const int MUT_DEPTH = 10;
+const int NMut = 50;
+const int MUT_DEPTH = 6;
 const double BIG_DOUBLE = 1e15;
 const double INITIAL_PHEROMONES = 250.0;
 
@@ -54,7 +54,7 @@ struct Colony_state
 
 
 
-// Colony is defined as a class, and as a particular case of an Instance (just for code factorization
+// Colony is defined as a class, and as a particular case of an Instance (just for code factorization)
 // It contains methods and attributes that make its colony state (Colony_state) evolve.
 // It contains a function that opens a window to change its parameters (ask_parameters()).
 // It containts a Qt graphical scene, and functions to update it.
@@ -75,9 +75,9 @@ private:
     void reverse(const int& kk,vector<int>& path, double& length);
     void ant_try(const int& f);
     void update_pheromones();
-    void plot_points();
-    void plot_best_result();
-    void plot_pheromones(int &width);
+    void plot_points(int width);
+    void plot_best_result(int width);
+    void plot_pheromones(int width);
     QGraphicsScene * scene;
     bool display_pheromones = true;
     bool display_best_walk = true;
@@ -89,7 +89,7 @@ public:
     ~Colony();
     void initialize_colony();
     void colonie_steps(const int& k);
-    void plot(int width);
+    void plot(const double &f);
     void set_colony_view(Colony_view & cview);
     void set_neighbors_graph(const int& k);
     void ask_parameters();
@@ -98,6 +98,7 @@ public:
     void set_options(const bool& b1,const bool& b2);
     void set_pause();
     void stop();
+    void setAutoZoom(const int& DX,const int& DY);
 };
 
 

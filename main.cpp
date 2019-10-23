@@ -24,7 +24,9 @@ int main(int argc, char *argv[])
     /// A new problem is generated even if the user asked to load an existing one.
     c.random_points(n,DX,DY);
 
-    if(choice){c.load_file();}
+    if(choice){
+        c.load_file(DX,DY);
+    }
     else{
         /// If the new problem is used, it is automatically saved in a subfolder, using the current time to create the filename
 
@@ -91,7 +93,7 @@ int main(int argc, char *argv[])
         QObject::connect(pause, SIGNAL(clicked()),&connexions[i], SLOT(pause()));
         QObject::connect(stop, SIGNAL(clicked()),&connexions[i], SLOT(stop()));
         QObject::connect(close, SIGNAL(clicked()),&connexions[i], SLOT(stop()));
-        colonies[i].plot(0);
+        colonies[i].plot(1.0);
     }
 
     window->show();
@@ -131,7 +133,7 @@ int main(int argc, char *argv[])
         for(int i=0;i<K;i++){
             colonies[i].colonie_steps(1);
             colonies[i].set_colony_view(cviews[i]);
-            colonies[i].plot(8);
+            colonies[i].plot(1.0);
         }
         a->processEvents();
     }
@@ -150,7 +152,7 @@ int main(int argc, char *argv[])
         colonies[i].write_result("Solution" + QString::number(i+1) + "_" + date.toString("dd-MM-yyyy") + "_"+time.toString("hh-mm-ss"));
         colonies[i].set_options(false,true);
         colonies[i].set_colony_view(cviews[i]);
-        colonies[i].plot(1);
+        colonies[i].plot(1.0);
         //a->processEvents();
     }
 

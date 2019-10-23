@@ -17,6 +17,9 @@ void Instance::random_points(const int& n2,const int& dx,const int& dy)
 {
     srand (time(NULL));
 
+    DX = dx;
+    DY = dy;
+
     n = n2;
     x = vector<int>(n);
     y = vector<int>(n);
@@ -71,8 +74,11 @@ QString Instance::ask_file()
 
 // loads a file by requesting it and loading it into an Instance then
 
-void Instance::load_file()
+void Instance::load_file(const int& dx,const int& dy)
 {
+    DX = dx;
+    DY = dy;
+
     QString str = ask_file();
     if(str==NULL)return;
     ifstream in(str.toStdString());

@@ -72,19 +72,19 @@ bool ask_main_parameters(int& K,int& n,int& DX,int& DY)
 void SetThings::setting()
 {
     c->ask_parameters();
-    c->plot(8);
+    c->plot(1.0);
 }
 
 void SetThings::pause()
 {
     c->set_pause();
-    c->plot(8);
+    c->plot(1.0);
 }
 
 void SetThings::stop()
 {
     c->stop();
-    c->plot(8);
+    c->plot(1.0);
 }
 
 void SetThings::quit_window()
