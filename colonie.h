@@ -83,6 +83,7 @@ private:
     bool display_best_walk = true;
     bool pause = false;
     bool already_initialized = false;
+    void set_neighbors_graph(const int& k);
 
 public:
     Colony();
@@ -91,7 +92,6 @@ public:
     void colonie_steps(const int& k);
     void plot(const double &f);
     void set_colony_view(Colony_view & cview);
-    void set_neighbors_graph(const int& k);
     void ask_parameters();
     bool is_finished();
     void write_result(const QString& s);

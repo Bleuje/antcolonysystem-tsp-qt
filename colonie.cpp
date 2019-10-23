@@ -32,6 +32,7 @@ void Colony::initialize_colony()
     etat.pheromone = vector<vector<double> >(n,vector<double>(n,INITIAL_PHEROMONES));;
     etat.add_pheromone = empty_matrix;
     already_initialized = true;
+    set_neighbors_graph(param.number_of_neighbors);
 };
 
 
