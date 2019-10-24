@@ -98,7 +98,6 @@ public:
     void set_options(const bool& b1,const bool& b2);
     void set_pause();
     void stop();
-    void setAutoZoom(const int& DX,const int& DY);
 };
 
 
