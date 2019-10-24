@@ -21,6 +21,7 @@ private:
     QPushButton * but2;
     QPushButton * but3;
     QPushButton * but4;
+    bool already_initialized = false;
 public:
     ~Colony_view();
     void connect(SetThings * s);

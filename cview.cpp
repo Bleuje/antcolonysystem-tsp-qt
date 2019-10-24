@@ -2,12 +2,14 @@
 
 Colony_view::~Colony_view()
 {
-    delete view;
-    delete but;
-    delete but2;
-    delete but3;
-    delete but4;
-    delete bar;
+    if(already_initialized){
+        delete view;
+        delete but;
+        delete but2;
+        delete but3;
+        delete but4;
+        delete bar;
+    }
 }
 
 void Colony_view::load(QGraphicsScene * scene,const int& it,const int& step,const double& lg)
@@ -26,6 +28,15 @@ void Colony_view::load(QGraphicsScene * scene,const int& it,const int& step,cons
 
 void Colony_view::initialize(const int& k,QWidget * window,const int& dx2,const int& dy2)
 {
+    if(already_initialized){
+        delete view;
+        delete but;
+        delete but2;
+        delete but3;
+        delete but4;
+        delete bar;
+    }
+    already_initialized = true;
     index = k+1;
     dx=dx2;
     dy=dy2;
