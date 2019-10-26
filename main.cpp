@@ -79,16 +79,24 @@ int main(int argc, char *argv[])
     SetThings * connexions = new SetThings[K];
     SetThings * global = new SetThings();
     global->window = window;
-    Colony_view * cviews = new Colony_view[K];
+    //Colony_view * cviews = new Colony_view[K];
+    vector<Colony_view> cviews;
+
+    qDebug() << "There\n";
+
     for(int i=0;i<K;i++)
     {
-        cviews[i].initialize(i,window,DX,DY);
-        colonies[i].set_colony_view(cviews[i]);
+        cviews.push_back(Colony_view(i,window,DX,DY));
         connexions[i].c = &colonies[i];
         cviews[i].connect(&connexions[i]);
         QObject::connect(pause, SIGNAL(clicked()),&connexions[i], SLOT(pause()));
         QObject::connect(stop, SIGNAL(clicked()),&connexions[i], SLOT(stop()));
         QObject::connect(close, SIGNAL(clicked()),&connexions[i], SLOT(stop()));
+    }
+
+    for(int i=0;i<K;i++)
+    {
+        colonies[i].set_colony_view(cviews[i]);
         colonies[i].plot(1.0);
     }
 
@@ -141,7 +149,7 @@ int main(int argc, char *argv[])
 
 
     /// Algorithm is over, final display
-    for(int i=0;i<K;i++){
+    for(int i=0;i<int(colonies.size());i++){
 
         QDate date = QDate::currentDate();
         QTime time = QTime::currentTime();

@@ -21,11 +21,12 @@ private:
     QPushButton * but2;
     QPushButton * but3;
     QPushButton * but4;
-    bool already_initialized = false;
+    QWidget * win;
 public:
     ~Colony_view();
+    Colony_view(const Colony_view& cv);
+    Colony_view(const int& k,QWidget * window,const int& dx2,const int& dy2);
     void connect(SetThings * s);
-    void initialize(const int& k,QWidget * window,const int& dx2,const int& dy2);
     void load(QGraphicsScene * scene,const int& it,const int& step,const double& lg);
 };
 
