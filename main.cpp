@@ -41,12 +41,10 @@ int main(int argc, char *argv[])
 
 
     /// Initialization of all colonies
-    Colony * colonies = new Colony[K];
+    vector<Colony> colonies;
     for(int i=0;i<K;i++){
-        colonies[i]=c;
-        colonies[i].initialize_colony();
+        colonies.push_back(Colony(c));
     }
-
 
     /// Creating the big main window...
     DX = min(DX,QApplication::desktop()->screenGeometry().width()/K);
@@ -77,8 +75,6 @@ int main(int argc, char *argv[])
     window->setWindowTitle("Improved Ant Colony System Algorithm");
 
 
-
-
     /// Defining connexions and printing the window...
     SetThings * connexions = new SetThings[K];
     SetThings * global = new SetThings();
@@ -88,13 +84,14 @@ int main(int argc, char *argv[])
     {
         cviews[i].initialize(i,window,DX,DY);
         colonies[i].set_colony_view(cviews[i]);
-        connexions[i].c = colonies + i;
+        connexions[i].c = &colonies[i];
         cviews[i].connect(&connexions[i]);
         QObject::connect(pause, SIGNAL(clicked()),&connexions[i], SLOT(pause()));
         QObject::connect(stop, SIGNAL(clicked()),&connexions[i], SLOT(stop()));
         QObject::connect(close, SIGNAL(clicked()),&connexions[i], SLOT(stop()));
         colonies[i].plot(1.0);
     }
+
 
     window->show();
     window->setGeometry(
@@ -127,7 +124,7 @@ int main(int argc, char *argv[])
     /// Algorithm is now launched (after the user clicked somewhere to stop a loop)
     ///
     ///****************************************************************************
-    while(!is_finished(colonies,K))
+    while(!is_finished(colonies))
     {
         //#pragma omp parallel for
         for(int i=0;i<K;i++){

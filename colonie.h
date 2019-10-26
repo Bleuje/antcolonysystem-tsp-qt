@@ -87,8 +87,8 @@ private:
 
 public:
     Colony();
+    Colony(const Colony& c);
     ~Colony();
-    void initialize_colony();
     void colonie_steps(const int& k);
     void plot(const double &f);
     void set_colony_view(Colony_view & cview);
@@ -102,7 +102,7 @@ public:
 
 
 
-bool is_finished(Colony * colonies,const int& k);
+bool is_finished(vector<Colony> colonies);
 
 
 

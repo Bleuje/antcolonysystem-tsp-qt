@@ -45,12 +45,6 @@ protected:
     QString ask_file();
     vector<vector<bool> > sub_graph; /// sub_graph is a matrix used to indicate the edges corresponding to the nearest neighbors
     double normalization;
-    //double minx;
-    //double maxx;
-    //double miny;
-    //double maxy;
-    //double pixel_position_x(const double&d,const int& DX,const int& DY);
-    //double pixel_position_y(const double&d,const int& DX,const int& DY);
     int DX,DY;
 public:
     virtual ~Instance();
@@ -60,7 +54,5 @@ public:
 };
 
 double norm(const int &x, const int &y);
-
-//double map(const double&x,const double&a,const double&b,const double&c,const double&d);
 
 #endif // INSTANCE_H_INCLUDED

@@ -8,33 +8,48 @@ using namespace std;
 
  ****************************************************************************/
 
-
 // Constructor
-Colony::Colony()
+Colony::Colony(){
+
+}
+
+// Copy constructor
+Colony::Colony(const Colony& c)
 {
-    //scene = new QGraphicsScene();
+    n = c.n;
+    x = c.x;
+    y = c.y;
+    dist = c.dist;
+    adj = c.adj;
+    sub_graph = c.sub_graph;
+    normalization = c.normalization;
+    DX = c.DX;
+    DY = c.DY;
+
+    param = c.param;
+
+    scene = new QGraphicsScene();
+    already_initialized = true;
+
+    if(!c.already_initialized){
+        vector<vector<double> > empty_matrix = vector<vector<double> >(n,vector<double>(n,0));
+        etat.pheromone = vector<vector<double> >(n,vector<double>(n,INITIAL_PHEROMONES));;
+        etat.add_pheromone = empty_matrix;
+        set_neighbors_graph(param.number_of_neighbors);
+    } else {
+        etat = c.etat;
+    }
 };
+
 
 
 // Destructor
 Colony::~Colony()
 {
-    if(already_initialized) delete scene;
+    if(already_initialized){
+        delete scene;
+    }
 }
-
-
-// Sets/resets some colony parameters/matrices.
-void Colony::initialize_colony()
-{
-    if(already_initialized) delete scene;
-    scene = new QGraphicsScene();
-    vector<vector<double> > empty_matrix = vector<vector<double> >(n,vector<double>(n,0));
-    etat.pheromone = vector<vector<double> >(n,vector<double>(n,INITIAL_PHEROMONES));;
-    etat.add_pheromone = empty_matrix;
-    already_initialized = true;
-    set_neighbors_graph(param.number_of_neighbors);
-};
-
 
 
 // Sets the sub-graph that only considers the nearest neightbors.
@@ -341,10 +356,10 @@ bool Colony::is_finished()
 
 
 // Checks out if all colonies have finished their iterations
-bool is_finished(Colony * colonies,const int& k){
-    for(int i=0;i<k;i++)
+bool is_finished(vector<Colony> colonies){
+    for(int i=0;i<int(colonies.size());i++)
     {
-        if(!((colonies + i)->is_finished()))
+        if(!(colonies[i].is_finished()))
             return false;
     }
     return true;
@@ -448,7 +463,7 @@ void Colony::plot_pheromones(int width)
 void Colony::plot(const double&f)
 {
     scene->clear();
-    plot_points(1.0);
+    plot_points(1.5);
 
     double w = scene->sceneRect().width();
     double h = scene->sceneRect().height();
@@ -458,7 +473,7 @@ void Colony::plot(const double&f)
     scene->clear();
     if(display_pheromones)plot_pheromones(pw);
     if(display_best_walk)plot_best_result(pw/6.0);
-    plot_points(pw/6.0);
+    plot_points(pw/5.0);
 }
 
 
